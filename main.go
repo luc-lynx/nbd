@@ -45,6 +45,7 @@ func main() {
 	if err := nbd.Connect(); err != nil {
 		panic(err)
 	}
+	defer nbd.Close()
 
 	if err := nbd.Handshake(); err != nil {
 		panic(err)
@@ -90,6 +91,10 @@ func (n *NBD) Connect() error {
 
 	n.conn = conn
 	return nil
+}
+
+func (n *NBD) Close() {
+	n.conn.Close()
 }
 
 func (n *NBD) Handshake() error {
