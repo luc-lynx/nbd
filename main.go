@@ -37,7 +37,7 @@ func main() {
 	flag.Parse()
 
 	if *data == "" {
-		fmt.Fprintf(os.Stderr, "Data to write cit annot be empty")
+		fmt.Fprintf(os.Stderr, "Data to write cannot be empty")
 		os.Exit(1)
 	}
 
@@ -206,7 +206,7 @@ func (n *NBD) sendRequest(request *NBDRequest) (*NBDReply, error) {
 		return nil, err
 	}
 
-	if readNum != int(NBD_REPLY_SIZE+request.Length) {
+	if readNum != int(rspLen) {
 		return nil, fmt.Errorf("cannot read all reply data: expected %d, read %d", request.Length, readNum)
 	}
 
@@ -223,8 +223,8 @@ func (n *NBD) sendCommand(command uint16, offset uint64, length uint32, data []b
 	handle := rand.Uint64()
 	request := &NBDRequest{
 		NBD_REQUEST_MAGIC,
-		command,
 		0,
+		command,
 		handle,
 		offset,
 		length,
