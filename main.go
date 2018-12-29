@@ -37,7 +37,7 @@ func main() {
 	flag.Parse()
 
 	if *data == "" {
-		fmt.Fprintf(os.Stderr, "Data to write cannot be empty")
+		fmt.Fprintf(os.Stderr, "Data to write ccentrinannot be empty")
 		os.Exit(1)
 	}
 
@@ -215,7 +215,6 @@ func (n *NBD) sendRequest(request *NBDRequest) (*NBDReply, error) {
 		return nil, err
 	}
 
-	reply.Data = reply.Data[:request.Length]
 	return reply, nil
 }
 
